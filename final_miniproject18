@@ -1,0 +1,294 @@
+package com.company;
+import java.util.*;
+
+
+class Bank
+{
+   int Account_No;
+   int Password;
+   int[] AccountNo1;
+   int[] Password1;
+
+     public static int index;
+     static int [] balance2 = new int[]{5000,6000,7000,8000,9000};
+     public void bank()
+     {
+        System.out.print("Enter your 4 digit Account NO. :");
+        Scanner sc = new Scanner(System.in);
+        Account_No = sc.nextInt();
+        System.out.print("EnterYour Password : ");
+        Password = sc.nextInt();
+        Details d1 = new Details();
+        d1.details(Account_No,Password);
+     }
+}
+class Menu extends Bank
+{
+    public void menu()
+    {
+        System.out.println(" 1.AccountDetails \n 2.DebitMoney \n 3.CreditMoney \n 4.TransferMoney \n 5.AccountBalance \n 6.MiniStatement \n 7.Exit \n ");
+        System.out.print("Select a Option : ");
+        Scanner sc1=new Scanner(System.in);
+        int option= sc1.nextInt();
+        switch (option)
+        {
+            case 1 :
+            {
+                AccountDetails A1 = new AccountDetails();
+                A1.accountDetails();
+                break;
+            }
+            case 2 :
+            {
+                DebitMoney D1 = new DebitMoney();
+                D1.debitMoney();
+                break;
+            }
+            case 3 :
+            {
+                CreditMoney c1 = new CreditMoney();
+                c1.creditMoney();
+                break;
+            }
+            case 4 :
+            {
+                TransferMoney T1 = new TransferMoney();
+                T1.transferMoney();
+                break;
+            }
+            case 5 :
+            {
+                AccountBalance AB1 = new AccountBalance();
+                AB1.accountBalance();
+                break;
+            }
+            case 6 :
+            {
+                MiniStatement M1 = new MiniStatement();
+                M1.miniStatement();
+                break;
+
+            }
+            case 7 :
+            {
+                Exit Ex1 = new Exit();
+                Ex1.exit();
+                break;
+            }
+            default :
+            {
+                System.out.println("Invalid Option !!! \n Enter a Valid Option :");
+                Menu M2 = new Menu();
+                M2.menu();
+            }
+
+        }
+
+    }
+}
+class AccountDetails extends Bank
+{
+    public void accountDetails()
+    {
+        System.out.println("Acount details");
+        details2 d1 = new details2();
+        d1.details21();
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+}
+class DebitMoney extends Bank
+{
+    public void debitMoney()
+    {
+        System.out.println("Enter Amount You Want To Debit :");
+        Scanner sc = new Scanner(System.in);
+        int amount = sc.nextInt();
+        Bank b2 = new Bank();
+        int b12 = b2.balance2[index];
+        int remaingBalance=b12-amount;
+        b2.balance2[index]=remaingBalance;
+        System.out.println("Updated Balance : " + b2.balance2[index]);
+        String s11="Deb";
+        MiniStatement M1 = new MiniStatement();
+        M1.storeTransaction(amount,s11);
+
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+}
+class CreditMoney extends Bank
+{
+    public void creditMoney()
+    {
+        System.out.println("Enter Amount You Want To credit :");
+        Scanner sc = new Scanner(System.in);
+        int amount = sc.nextInt();
+        Bank b3 = new Bank();
+        int b13 = b3.balance2[index];
+        int remaingBalance=b13+amount;
+        b3.balance2[index]=remaingBalance;
+        System.out.println("Updated Balance : " + b3.balance2[index]);
+        String s12="Cre";
+        MiniStatement M2 = new MiniStatement();
+        M2.storeTransaction(amount,s12);
+
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+}
+class TransferMoney extends Bank
+{
+    int m1;
+    public void transferMoney()
+    {
+        Bank b4 = new Bank();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Benificiary account no.");
+        int ac = sc.nextInt();
+        System.out.println("Enter amount to Transfer Money");
+        int amount = sc.nextInt();
+        int b14 = b4.balance2[index];
+        int b15 = b4.balance2[m1];
+        int remaingBalance1=b14-amount;
+        int remaingBalance2=b15+amount;
+        b4.balance2[index]=remaingBalance1;
+        b4.balance2[m1]=remaingBalance2;
+        System.out.println("Youe Updated Balance : " + b4.balance2[index]);
+
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+}
+class AccountBalance extends Bank
+{
+    public void accountBalance()
+    {
+        System.out.print("Your Account Balance : ");
+        Bank b5 = new Bank();
+        int b16 = b5.balance2[index];
+        System.out.println(b16);
+
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+}
+class MiniStatement extends Bank
+{
+    static int z=0;
+    static int [] amountS= new int[10];
+    static String [] s1 = new String[10];
+    public static void storeTransaction(int amount,String s)
+    {
+        amountS[z]=amount;
+        s1[z]=s;
+        z++;
+    }
+    public void miniStatement()
+    {
+        System.out.println("MiniStatement");
+        int p=0;
+        int q=0;
+        System.out.println();
+        System.out.println();
+        while(amountS[p]!=0)
+        {
+            System.out.print(amountS[p] + " ");
+            p++;
+        }
+        System.out.println();
+        while(s1[q]!=null)
+        {
+            System.out.print(s1[q] + " ");
+            q++;
+        }
+        System.out.println();
+        System.out.println();
+
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+
+}
+
+class Exit extends Bank
+{
+    public void exit()
+    {
+        System.out.println("Exit");
+        ReturnMenu R1 = new ReturnMenu();
+        R1.returnMenu();
+    }
+}
+class Details extends Bank
+{
+
+    public void details(int a, int b)
+    {
+        AccountNo1 = new int[]{10001, 20001, 30001, 40001, 50001};
+        Password1= new int[]{10001, 10002, 10003,10004, 10005};
+        Scanner sc = new Scanner(System.in);
+        int flag =0;
+        for (int i = 0; i < 5; i++)
+        {
+            if (AccountNo1[i] == a)
+            {
+                if (Password1[i] == b)
+                {
+                    System.out.println("successfully log in");
+                    flag = 1;
+                    index =i;
+                }
+            }
+        }
+        if(flag==0)
+        {
+            System.out.println("invalid account no. or password!! \nplease enter correct Account no. and Password !! ");
+            Bank b1 = new Bank();
+            b1.bank();
+        }
+        else
+        {
+            Menu M2 = new Menu();
+            M2.menu();
+        }
+
+    }
+}
+class details2 extends Details
+{
+    int[] Contacts = new int []{958765463,985452365,968547525,974521532,925631456};
+    String[] Names = new String []{"Gaurav","Hitesh","Govind","sam","tom"};
+    void details21()
+    {
+        System.out.println(index +"index1");
+        System.out.println("Name : " + Names[index]);
+        System.out.println("Contact : " + Contacts[index]);
+    }
+}
+class ReturnMenu
+{
+    public void returnMenu()
+    {
+        System.out.println(" Do you want to go again to main menu !! \n 1.YES \n 2.NO");
+        Scanner sc3 = new Scanner(System.in);
+        int a = sc3.nextInt();
+        if (a==1)
+        {
+            Menu M3 = new Menu();
+            M3.menu();
+        }
+    }
+}
+public class Main {
+
+    public static void main(String[] args)
+    {
+        System.out.println("Welcome to our mini project :");
+        Bank b1 = new Bank();
+        b1.bank();
+        System.out.println("Operation Completed !!! \nThank you visiting our ATM !!");
+
+    }
+}
+
